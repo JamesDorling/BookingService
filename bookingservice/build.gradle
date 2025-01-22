@@ -18,10 +18,21 @@ repositories {
 }
 
 dependencies {
+	// Spring dependencies
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Jakarta
+	implementation 'jakarta.servlet:jakarta.servlet-api'
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+	// Bean validation
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+
+	// Lombok
+	implementation 'org.projectlombok:lombok:1.18.36'
 }
 
 tasks.named('test') {
