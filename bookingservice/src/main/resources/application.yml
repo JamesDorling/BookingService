@@ -1,0 +1,6 @@
+authentication:
+    token-header: "Authorization"
+    token: "booking-service-token"
+    protected-uri-ant-pattern: "/book"
+    unprotected-uri-ant-pattern: "/**"
+
