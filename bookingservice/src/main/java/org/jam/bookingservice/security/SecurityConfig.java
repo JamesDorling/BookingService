@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,6 +22,7 @@ public class SecurityConfig {
     @Value("${authentication.protected-uri-ant-pattern}")
     private String protectedRequestMatchers;
 
+    // This method sets up Spring's filter chain that Spring Security uses to filter requests.
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable) //API will be stateless, so this can be disabled
@@ -31,5 +34,13 @@ public class SecurityConfig {
         httpSecurity.addFilterBefore(new TokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        // This should only throw if auth is disabled.
+        return authentication -> {
+            throw new AuthenticationServiceException("If you are seeing this, Auth has broken.");
+        };
     }
 }

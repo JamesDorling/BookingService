@@ -21,7 +21,7 @@ public class JwtUtils {
      *
      * @return the string token, signed by Jwt
      */
-    public static String generateToken() {
+    public String generateToken() {
         // This generates a random token value
         String tokenValue = UUID.randomUUID().toString();
         log.debug("Generated {} token value.", tokenValue);
@@ -42,7 +42,7 @@ public class JwtUtils {
      * @param token the token to validate
      * @return whether to grant access or not as a boolean
      */
-    public static boolean validateToken(String token) {
+    public boolean isTokenValid(String token) {
         try {
             SecretKey key = new SecretKeySpec(KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
@@ -58,7 +58,7 @@ public class JwtUtils {
      * @param token the token to check for expiration
      * @return whether the token is expired as a true or false value
      */
-    public static boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         SecretKey key = new SecretKeySpec(KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
         Date expiration = Jwts.parserBuilder()
             .setSigningKey(key)
