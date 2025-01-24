@@ -1,3 +1,7 @@
+logging:
+  level:
+    org.jam.bookingservice: DEBUG
+
 authentication:
     token-header: "Authorization"
     token: "booking-service-token"
